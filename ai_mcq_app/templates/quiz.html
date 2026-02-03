@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCQ Quiz</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <main class="container">
+    <section class="card">
+      <div class="header">
+        <div>
+          <h1>{{ meta.subject }} - Class {{ meta.class_level }}</h1>
+          <p>Total Questions: {{ meta.total }}</p>
+        </div>
+        <a class="link" href="{{ url_for('index') }}">Start Over</a>
+      </div>
+
+      <form action="{{ url_for('submit') }}" method="POST" id="quiz-form">
+        {% for mcq in mcqs %}
+          <article class="question-block">
+            <h2>Q{{ loop.index }}. {{ mcq.question }}</h2>
+            <div class="options">
+              {% for option in mcq.options %}
+                <label class="option">
+                  <input type="radio" name="question_{{ loop.parent.index0 }}" value="{{ option }}" required>
+                  <span>{{ option }}</span>
+                </label>
+              {% endfor %}
+            </div>
+          </article>
+        {% endfor %}
+        <button type="submit" class="primary">Submit Answers</button>
+      </form>
+    </section>
+  </main>
+  <script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+</body>
+</html>

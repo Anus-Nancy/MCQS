@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI MCQ Generator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <main class="container">
+    <section class="card">
+      <h1>AI-Powered MCQ Generator</h1>
+      <p>Select your subject, class, and number of MCQs to begin.</p>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="alert">
+            {{ messages[0] }}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <form action="{{ url_for('generate') }}" method="POST" class="form-grid">
+        <label>
+          Subject
+          <select name="subject" required>
+            <option value="" disabled selected>Select subject</option>
+            {% for subject in subjects %}
+              <option value="{{ subject }}">{{ subject }}</option>
+            {% endfor %}
+          </select>
+        </label>
+
+        <label>
+          Class
+          <select name="class_level" required>
+            <option value="" disabled selected>Select class</option>
+            {% for class_level in classes %}
+              <option value="{{ class_level }}">Class {{ class_level }}</option>
+            {% endfor %}
+          </select>
+        </label>
+
+        <label>
+          Number of MCQs
+          <input type="number" name="question_count" min="5" max="100" value="20" required>
+        </label>
+
+        <button type="submit" class="primary">Generate Quiz</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
