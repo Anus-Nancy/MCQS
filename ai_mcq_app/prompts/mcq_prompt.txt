@@ -1,0 +1,6 @@
+Generate {count} multiple-choice questions for {subject} (Class {class_level}).
+Return a JSON array only. Each item must have:
+- "question": string
+- "options": array of exactly 4 strings
+- "correct_answer": string that matches one of the options
+Do not include explanations or markdown. Output JSON only.
